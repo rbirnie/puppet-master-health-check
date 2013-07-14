@@ -1,0 +1,20 @@
+# default: on
+# description: puppetmastercheck
+service puppetmastercheck
+{
+# this is a config for xinetd, place it in /etc/xinetd.d/
+    disable = no
+    flags = REUSE
+    socket_type = stream
+    port = 9200
+    wait = no
+    user = nobody
+    server = /usr/local/sbin/puppetmastercheck.sh
+    log_type = FILE /var/log/xinetdlog
+    log_on_failure += USERID
+    only_from = 0.0.0.0/0
+    # recommended to put the IPs that need
+    # to connect exclusively (security purposes)
+    per_source = UNLIMITED
+}
+
